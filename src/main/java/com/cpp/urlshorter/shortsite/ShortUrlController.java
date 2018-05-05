@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
-import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
