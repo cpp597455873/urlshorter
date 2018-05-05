@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,8 @@ public class ShortUrlController {
     @Value("${server.port}")
     int port;
 
-    private final String BASE_VISIT_URL = "127.0.0.1";
+    @Value("${domain}")
+    private String domain;
 
     @Resource
     private ShortUrlRepository shortUrlRepository;
@@ -37,12 +39,12 @@ public class ShortUrlController {
     }
 
     private String getBaseUrl() {
-        return BASE_VISIT_URL + (port == 80 ? "" : ":" + port) + "/";
+        return domain + (port == 80 ? "" : ":" + port) + "/";
     }
 
     @RequestMapping(value = "/create.do", method = RequestMethod.GET)
     @ResponseBody
-    public Map create(@RequestParam String url) {
+    public Map<String, Object> create(@RequestParam String url) {
         if (!url.startsWith("http")) {
             url = "http://" + url;
         }

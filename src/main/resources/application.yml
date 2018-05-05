@@ -10,3 +10,4 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   mvc:
     static-path-pattern: /web/**
+domain: 127.0.0.1
