@@ -13,6 +13,8 @@ public class ShortUrlModel {
     @Column
     private String longUrl;
     @Column
+    private String longUrlMd5;
+    @Column
     private int visitCount;
     @Column
     private Date latestVisitTime;
@@ -59,5 +61,13 @@ public class ShortUrlModel {
 
     public void setLatestVisitTime(Date latestVisitTime) {
         this.latestVisitTime = latestVisitTime;
+    }
+
+    public String getLongUrlMd5() {
+        return longUrlMd5;
+    }
+
+    public void setLongUrlMd5(String longUrlMd5) {
+        this.longUrlMd5 = longUrlMd5;
     }
 }

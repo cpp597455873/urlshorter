@@ -9,7 +9,7 @@ public class ShortSite {
 
     public static String getOneSite() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 8; i++) {
             int index = new Random().nextInt(charSet.length());
             sb.append(charSet.charAt(index));
         }

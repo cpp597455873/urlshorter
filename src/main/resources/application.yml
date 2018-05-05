@@ -1,10 +1,12 @@
 server:
-  port: 7070
+  port: 80
 spring:
   jpa:
     show-sql: true
   datasource:
     url: jdbc:mysql://111.231.209.179:3306/testdb
     username: root
-    password: 
+    password:
     driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    static-path-pattern: /web/**
