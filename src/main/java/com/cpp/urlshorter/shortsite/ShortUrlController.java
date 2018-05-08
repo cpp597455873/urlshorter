@@ -8,12 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class ShortUrlController {
+    private final String charSet = "12345mnABCD6wxyzEFGHIJKLMNOPjkl7980abcdefghiqrstuvopQRSTUVWXYZ";
 
     @Value("${server.port}")
     int port;
@@ -47,6 +46,7 @@ public class ShortUrlController {
             url = "http://" + url;
         }
 
+
         //检查是否存在长地址  这里使用MD5这样建立索引的时候会更快
         String md5 = DigestUtils.md5DigestAsHex(url.getBytes());
         List<ShortUrlModel> longUrlList = shortUrlRepository.findByLongUrlMd5(md5);
@@ -56,9 +56,9 @@ public class ShortUrlController {
 
 
         //检查短地址是不是存在
-        String oneSite = ShortSite.getOneSite();
+        String oneSite = getOneSite();
         while (shortUrlRepository.findByShortUrl(oneSite) != null) {
-            oneSite = ShortSite.getOneSite();
+            oneSite = getOneSite();
         }
 
         ShortUrlModel shortUrlModel = new ShortUrlModel();
@@ -69,5 +69,14 @@ public class ShortUrlController {
         shortUrlRepository.save(shortUrlModel);
 
         return ImmutableMap.of("short_url", getBaseUrl() + oneSite, "long_url", url);
+    }
+
+    private String getOneSite() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            int index = new Random().nextInt(charSet.length());
+            sb.append(charSet.charAt(index));
+        }
+        return sb.toString();
     }
 }
