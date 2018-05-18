@@ -3,21 +3,28 @@ package com.cpp.urlshorter.shortsite;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
-@Entity(name = "tb_url")
+@Entity
+@Table(name = "test_short_url")
 public class ShortUrlModel {
     @Column
     @Id
     private String shortUrl;
+
     @Column
     private String longUrl;
-    @Column
+
+    @Column(unique = true)
     private String longUrlMd5;
+
     @Column
     private int visitCount;
+
     @Column
     private Date latestVisitTime;
+
     @Column
     private Date createTime;
 
