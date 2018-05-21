@@ -91,7 +91,7 @@ public class ShortUrlController {
 
 
     private String getBaseUrl() {
-        return BASE_VISIT_URL + (port == 80 ? "" : ":" + port) + "/s/";
+        return BASE_VISIT_URL + (port == 80 ? "" : ":" + port) + "/";
     }
 
 }
