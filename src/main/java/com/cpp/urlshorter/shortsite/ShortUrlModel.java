@@ -1,17 +1,16 @@
 package com.cpp.urlshorter.shortsite;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "test_short_url")
 public class ShortUrlModel {
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private String shortUrl;
+    private Long shortUrlId;
+
 
     @Column
     private String longUrl;
@@ -28,14 +27,6 @@ public class ShortUrlModel {
     @Column
     private Date createTime;
 
-
-    public String getShortUrl() {
-        return shortUrl;
-    }
-
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
-    }
 
     public String getLongUrl() {
         return longUrl;
@@ -76,5 +67,13 @@ public class ShortUrlModel {
 
     public void setLongUrlMd5(String longUrlMd5) {
         this.longUrlMd5 = longUrlMd5;
+    }
+
+    public Long getShortUrlId() {
+        return shortUrlId;
+    }
+
+    public void setShortUrlId(Long shortUrlId) {
+        this.shortUrlId = shortUrlId;
     }
 }

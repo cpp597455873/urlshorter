@@ -1,16 +1,18 @@
+is_debug_env: true
 server:
-  port: 7788
+  port: 8080
 spring:
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5Dialect
   datasource:
-    url: jdbc:mysql://111.231.209.179:3306/testdb
+    url: jdbc:mysql://111.231.209.179:3306/db_url
 #    url: jdbc:mysql://127.0.0.1:3306/testdb
     username: root
     password:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
   mvc:
-    static-path-pattern: /web/**
+    static-path-pattern: /static/**
