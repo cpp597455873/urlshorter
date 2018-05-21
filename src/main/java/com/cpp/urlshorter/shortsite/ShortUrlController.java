@@ -31,14 +31,16 @@ public class ShortUrlController {
     private EntityManager entityManager;
 
     @ApiOperation("访问短链接")
-    @RequestMapping(value = "/{short_url}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "{short_url:[0-9a-zA-Z]{1,}}", method = RequestMethod.GET)
     @Transactional
     public Object visit(@PathVariable @ApiParam(value = "short_url", name = "短连接") String short_url) {
         TypedQuery<ShortUrlModel> query = entityManager.createQuery("Select s from ShortUrlModel s where s.shortUrlId=:shortUrlId", ShortUrlModel.class);
         query.setParameter("shortUrlId", ShortUrlHelper._62_to_10(short_url));
         List<ShortUrlModel> resultList = query.getResultList();
         if (resultList == null || resultList.size() == 0) {
-            return new ModelAndView("/static/error.html");
+            return new RedirectView("/static/error.html");
+
         } else {
             ShortUrlModel shortUrlModel = resultList.get(0);
             shortUrlModel.setVisitCount(shortUrlModel.getVisitCount() + 1);
