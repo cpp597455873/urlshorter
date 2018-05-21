@@ -5,12 +5,10 @@ import com.google.common.collect.ImmutableMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.EntityManager;
@@ -35,7 +33,7 @@ public class ShortUrlController {
     @RequestMapping(value = "{short_url:[0-9a-zA-Z]{1,}}", method = RequestMethod.GET)
     @Transactional
     public Object visit(@PathVariable @ApiParam(value = "short_url", name = "短连接") String short_url) {
-        TypedQuery<ShortUrlModel> query = entityManager.createQuery("Select s from ShortUrlModel s where s.shortUrlId=:shortUrlId", ShortUrlModel.class);
+        TypedQuery<ShortUrlModel> query = entityManager.createQuery("Select s from ShortUrlModel s where s.id=:shortUrlId", ShortUrlModel.class);
         query.setParameter("shortUrlId", ShortUrlHelper._62_to_10(short_url));
         List<ShortUrlModel> resultList = query.getResultList();
         if (resultList == null || resultList.size() == 0) {
@@ -65,7 +63,7 @@ public class ShortUrlController {
         query.setParameter("longUrlMd5", md5);
         List<ShortUrlModel> resultList = query.getResultList();
         if (resultList != null && resultList.size() > 0) {
-            return ImmutableMap.of("short_url", getBaseUrl() + ShortUrlHelper._10_to_62(resultList.get(0).getShortUrlId()), "long_url", url);
+            return ImmutableMap.of("short_url", getBaseUrl() + ShortUrlHelper._10_to_62(resultList.get(0).getId()), "long_url", url);
         }
 
 
@@ -76,7 +74,7 @@ public class ShortUrlController {
         shortUrlModel.setCreateTime(new Date());
         entityManager.persist(shortUrlModel);
         entityManager.flush();
-        return ImmutableMap.of("short_url", getBaseUrl() + ShortUrlHelper._10_to_62(shortUrlModel.getShortUrlId()), "long_url", url);
+        return ImmutableMap.of("short_url", getBaseUrl() + ShortUrlHelper._10_to_62(shortUrlModel.getId()), "long_url", url);
     }
 
 

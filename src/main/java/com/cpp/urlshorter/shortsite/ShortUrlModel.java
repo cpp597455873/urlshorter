@@ -9,7 +9,7 @@ public class ShortUrlModel {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long shortUrlId;
+    private Long id;
 
 
     @Column
@@ -69,11 +69,11 @@ public class ShortUrlModel {
         this.longUrlMd5 = longUrlMd5;
     }
 
-    public Long getShortUrlId() {
-        return shortUrlId;
+    public Long getId() {
+        return id;
     }
 
-    public void setShortUrlId(Long shortUrlId) {
-        this.shortUrlId = shortUrlId;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
