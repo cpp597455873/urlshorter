@@ -1,7 +1,8 @@
 package com.cpp.urlshorter;
 
 public class ApiResonse<T> {
-    private static final int SUCCESS = 0;
+    public static final int SUCCESS = 0;
+    public static final int FAIL_CODE_INTERNAL = -1;
     private static final String SUCCESS_MSG = "OK";
     private int code;
     private T data;
@@ -10,6 +11,11 @@ public class ApiResonse<T> {
     public ApiResonse(int code, T data, String msg) {
         this.code = code;
         this.data = data;
+        this.msg = msg;
+    }
+
+    public ApiResonse(int code, String msg) {
+        this.code = code;
         this.msg = msg;
     }
 
